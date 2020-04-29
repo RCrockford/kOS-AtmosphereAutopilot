@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# VS temps
+.vs
+*.cache
+src/kOS.Addons.AtmosphereAutopilot/obj/Debug/kOS.AddOns.AtmosphereAutopilot.csproj.FileListAbsolute.txt
+src/kOS.Addons.AtmosphereAutopilot/obj/Release/kOS.AddOns.AtmosphereAutopilot.csproj.FileListAbsolute.txt
