@@ -14,7 +14,6 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Fortran module files
 *.mod
@@ -34,5 +33,4 @@
 # VS temps
 .vs
 *.cache
-src/kOS.Addons.AtmosphereAutopilot/obj/Debug/kOS.AddOns.AtmosphereAutopilot.csproj.FileListAbsolute.txt
-src/kOS.Addons.AtmosphereAutopilot/obj/Release/kOS.AddOns.AtmosphereAutopilot.csproj.FileListAbsolute.txt
+src/kOS.Addons.AtmosphereAutopilot/obj

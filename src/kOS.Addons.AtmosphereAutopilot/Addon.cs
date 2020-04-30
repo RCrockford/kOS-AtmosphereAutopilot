@@ -26,6 +26,7 @@ namespace kOS.AddOns.AtmosphereAutopilotAddon
         private float AltitudeSetPoint = -1f;
         private float VertSpeedSetPoint = float.NaN;
         private Vector3 DirectionSetPoint = Vector3.zero;
+        private bool PseudoFLC = true;
 
         public Addon(SharedObjects shared) : base(shared)
         {
@@ -33,6 +34,7 @@ namespace kOS.AddOns.AtmosphereAutopilotAddon
             AddSuffix("DIRECTOR", new SetSuffix<BooleanValue>(() => dcAP != null, SetDirectorActive));
             AddSuffix("CRUISE", new SetSuffix<BooleanValue>(() => ccAP != null, SetCruiseActive));
             AddSuffix("SPEEDCONTROL", new SetSuffix<BooleanValue>(() => speedAP != null && speedAP.spd_control_enabled, SetThrustActive));
+            AddSuffix("PSEUDOFLC", new SetSuffix<BooleanValue>(() => PseudoFLC, SetPseudoFLC));
             AddSuffix("SPEED", new SetSuffix<ScalarValue>(() => SpeedSetPoint, SetSpeedSetPoint));
             AddSuffix("HEADING", new SetSuffix<ScalarValue>(() => HeadingSetPoint, SetHeadingSetPoint));
             AddSuffix("ALTITUDE", new SetSuffix<ScalarValue>(() => AltitudeSetPoint, SetAltitudeSetPoint));
@@ -135,6 +137,7 @@ namespace kOS.AddOns.AtmosphereAutopilotAddon
                             ccAP.desired_vertspeed.Value = VertSpeedSetPoint;
                     }
                     ccAP.vertical_control = true;
+                    ccAP.pseudo_flc = PseudoFLC;
                     ResetSpeedControl();
                 }
             }
@@ -158,6 +161,14 @@ namespace kOS.AddOns.AtmosphereAutopilotAddon
                     speedAP.setpoint = new SpeedSetpoint(SpeedType.MetersPerSecond, SpeedSetPoint, shared.Vessel);
                 else
                     SpeedSetPoint = speedAP.setpoint.mps();
+            }
+        }
+        private void SetPseudoFLC(BooleanValue value)
+        {
+            PseudoFLC = value;
+            if (ccAP != null)
+            {
+                ccAP.pseudo_flc = PseudoFLC;
             }
         }
         private void SetSpeedSetPoint(ScalarValue value)
